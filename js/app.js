@@ -15,7 +15,7 @@ const pinnedLocationsList = document.querySelector("[data-pinned-locations-list]
 const savedLocations = getSavedLocations();
 
 async function getLatLong(locationName) {
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${locationName}&limit=1&appid=${API_KEY}`;
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${locationName}&limit=1&appid=${API_KEY}`;
   try {
     const response = await fetch(url);
     if(!response.ok) {
