@@ -79,8 +79,7 @@ main {
 }
 
 .form-section {
-  margin-top: 7rem;
-  margin-bottom: 7rem;
+  margin-block: 7rem;
 }
 
 .form-section form {
@@ -244,4 +243,108 @@ main {
 .no-weather-text {
   text-align: center;
   color: var(--grey);
+}
+
+@media (max-width: 980px) {
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  #root {
+    height: initial;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40% 60%; /* think later */
+  }
+
+  main {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    border-right: 0;
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .form-section {
+    width: 280px;
+    margin-block: 0;
+  }
+
+  .form-section form {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .form-section form input#location-name {
+    width: 100%;
+    padding-block: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .form-section form button {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .weather-display-section {
+    max-width: 410px;
+  }
+
+  .pinned-locations ul[data-pinned-locations-list] {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-rows: auto 60%;
+  }
+
+  main {
+    flex-wrap: wrap;
+    gap: 4rem;
+    padding-block-start: 3rem;
+    padding-block-end: 2rem;
+  }
+
+  .pinned-locations h2 {
+    padding-block-start: 2rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .root-header h1 {
+    font-size: 1.75rem;
+  }
+
+  main,
+  .pinned-locations {
+    padding-inline: 2rem;
+  }
+
+  .form-section {
+    width: 90%;
+  }
+
+  .weather-details {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .weather-details .temp-secondary {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.675rem;
+    text-align: center;
+  }
 }
