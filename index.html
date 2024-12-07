@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div id="root">
+      <header class="root-header">
+        <h1>Weather App</h1>
+      </header>
+      <div class="container">
+        <main>
+          <section class="form-section">
+            <form data-location-form>
+              <label for="location-name" class="sr-only"
+                >Enter your location name</label
+              >
+              <input
+                type="text"
+                name="location-name"
+                id="location-name"
+                placeholder="Enter location"
+                data-location-input
+              />
+              <button type="submit">Get Weather</button>
+            </form>
+          </section>
+          <section class="weather-display-section" data-weather-display-section>
+            <p class="no-weather-text">
+              Nothing to show. Enter location above to show weather data
+            </p>
+          </section>
+        </main>
+        <aside class="pinned-locations">
+          <h2>Pinned locations</h2>
+          <ul data-pinned-locations-list></ul>
+        </aside>
+      </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
