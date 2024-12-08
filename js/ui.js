@@ -17,20 +17,24 @@ async function refreshWeather(locationName) {
     pinnedLocationsList.children[
       targetIndex
     ].lastElementChild.firstElementChild.firstElementChild.textContent =
-      response.main.temp.toString() + "°C";
+      Math.round(response.main.temp).toString() + "°C";
     pinnedLocationsList.children[
       targetIndex
     ].lastElementChild.firstElementChild.lastElementChild.src = `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`;
     pinnedLocationsList.children[
       targetIndex
     ].lastElementChild.lastElementChild.firstElementChild.textContent =
-      response.weather[0].main.toString();
+      response.weather[0].main;
     pinnedLocationsList.children[
       targetIndex
-    ].lastElementChild.lastElementChild.children[1].textContent = `Feels like ${response.main.feels_like}°`;
+    ].lastElementChild.lastElementChild.children[1].textContent = `Feels like ${Math.round(
+      response.main.feels_like
+    )}°`;
     pinnedLocationsList.children[
       targetIndex
-    ].lastElementChild.lastElementChild.lastElementChild.textContent = `Min ${response.main.temp_min}° • Max ${response.main.temp_max}°`;
+    ].lastElementChild.lastElementChild.lastElementChild.textContent = `Min ${Math.round(
+      response.main.temp_min
+    )}° • Max ${Math.round(response.main.temp_max)}°`;
   } catch (error) {
     console.log(`refreshWeather Error: ${error}`);
   }
@@ -56,13 +60,17 @@ function pinnedListItemUI(response) {
     </header>
     <div class="weather-details">
       <p class="temp-main">
-        <span>${response.main.temp}°C</span>
-        <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png" alt="Weather icon" />
+        <span>${Math.round(response.main.temp)}°C</span>
+        <img src="https://openweathermap.org/img/wn/${
+          response.weather[0].icon
+        }@2x.png" alt="Weather icon" />
       </p>
       <p class="temp-secondary">
         <span>${response.weather[0].main}</span>
-        <span>Feels like ${response.main.feels_like}°</span>
-        <span>Min ${response.main.temp_min}° • Max ${response.main.temp_max}°</span>
+        <span>Feels like ${Math.round(response.main.feels_like)}°</span>
+        <span>Min ${Math.round(response.main.temp_min)}° • Max ${Math.round(
+    response.main.temp_max
+  )}°</span>
       </p>
     </div>
   `;
@@ -153,13 +161,17 @@ function displayWeather(response) {
     </header>
     <div class="weather-details">
       <p class="temp-main">
-        <span>${response.main.temp}°C</span>
-        <img src="https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png" alt="Weather icon" />
+        <span>${Math.round(response.main.temp)}°C</span>
+        <img src="https://openweathermap.org/img/wn/${
+          response.weather[0].icon
+        }@2x.png" alt="Weather icon" />
       </p>
       <p class="temp-secondary">
         <span>${response.weather[0].main}</span>
-        <span>Feels like ${response.main.feels_like}°</span>
-        <span>Min ${response.main.temp_min}° • Max ${response.main.temp_max}°</span>
+        <span>Feels like ${Math.round(response.main.feels_like)}°</span>
+        <span>Min ${Math.round(response.main.temp_min)}° • Max ${Math.round(
+    response.main.temp_max
+  )}°</span>
       </p>
     </div>
   `;
