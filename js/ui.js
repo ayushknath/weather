@@ -38,7 +38,7 @@ async function refreshWeather(locationName) {
 
 function pinnedListItemUI(response) {
   const li = document.createElement("li");
-  li.classList.add("pinned-display-list-item");
+  li.classList.add("pinned-item");
   li.innerHTML = `
     <header class="weather-display-header">
       <h3>
@@ -46,10 +46,10 @@ function pinnedListItemUI(response) {
         <span>${response.name}, ${response.sys.country}</span>
       </h3>
       <div class="action-icons-container">
-        <button title="Refresh weather data" data-refresh-location-data>
+        <button class="action-button refresh-button" title="Refresh weather data" data-refresh-location-data>
           <img src="./assets/img/refresh.png" alt="Refresh icon" />
         </button>
-        <button title="Unpin location" data-delete-location>
+        <button class="action-button unpin-button" title="Unpin location" data-delete-location>
           <img src="./assets/img/pin-filled.png" alt="Unpin icon" />
         </button>
       </div>
@@ -147,7 +147,7 @@ function displayWeather(response) {
         <img src="./assets/img/location-pin.png" alt="Location pin icon" />
         <span>${response.name}, ${response.sys.country}</span>
       </h3>
-      <button title="Pin location" data-save-location>
+      <button class="action-button pin-button" title="Pin location" data-save-location>
         <img src="./assets/img/pin.png" alt="Pin icon" />
       </button>
     </header>

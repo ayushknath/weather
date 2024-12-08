@@ -2,8 +2,11 @@
   --fontFamily: "Poppins", sans-serif;
   --grey: #aaa;
   --shadowColor: #ddd;
-  --orange: hsl(23, 100%, 46%);
-  --darkOrange: hsl(23, 100%, 38%);
+  --orange: hsl(23, 78%, 49%);
+  --darkOrange: hsl(23, 78%, 46%);
+  --focusOrange: hsl(23, 100%, 75%);
+  --refreshFocus: hsl(201, 70%, 71%);
+  --refershBackground: hsla(201, 70%, 93%, 0.9);
 }
 
 *,
@@ -58,9 +61,12 @@ ul {
 }
 
 .root-header {
-  text-align: center;
   padding: 1rem;
   border-bottom: 1px solid var(--grey);
+}
+
+.root-header h1 {
+  text-align: center;
 }
 
 .container {
@@ -85,7 +91,6 @@ main {
 .form-section form {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
@@ -96,11 +101,16 @@ main {
   border-radius: 0.25rem;
 }
 
+.form-section form input#location-name:focus-visible,
+.form-section form button:focus-visible {
+  box-shadow: 0 0 0 3px var(--focusOrange);
+}
+
 .form-section form button {
   padding-inline: 0.5rem;
   padding-block: 0.25rem;
+  border: 1px solid var(--darkOrange);
   border-radius: 0.25rem;
-  color: white;
   background-color: var(--orange);
 }
 
@@ -112,40 +122,58 @@ main {
   transform: scale(0.98);
 }
 
-.pinned-locations {
-  padding-inline: 1rem;
-}
+/* 
+  Weather display section & 
+  Pinned locations section 
+*/
 
-.pinned-locations h2 {
-  padding-block: 1rem;
-  text-align: center;
-}
-
-.pinned-locations ul[data-pinned-locations-list] {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  height: calc(100vh - 68.8px - 80.8px);
-  padding-bottom: 1rem;
-  overflow-y: auto;
+.weather-display-section {
+  max-width: 510px;
 }
 
 .weather-display-section,
-.pinned-display-list-item {
-  max-width: 510px;
+.pinned-item {
   padding: 1rem;
   border: 1px solid var(--grey);
   border-radius: 0.5rem;
   box-shadow: 1px 1px 3px 0 var(--shadowColor);
 }
 
-.pinned-display-list-item {
-  position: relative;
+.pinned-item {
   max-width: 410px;
 }
 
-.pinned-display-list-item.refreshing::after {
+.no-weather-text {
+  text-align: center;
+  color: var(--grey);
+}
+
+.pinned-locations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem;
+}
+
+.pinned-locations h2 {
+  text-align: center;
+}
+
+.pinned-locations .pinned-locations-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: calc(100vh - 68.8px - 80.8px);
+  overflow-y: auto;
+}
+
+.pinned-item {
+  position: relative;
+}
+
+.pinned-item.refreshing::after {
   content: "Refreshing...";
   position: absolute;
   top: 0;
@@ -158,7 +186,7 @@ main {
   height: 100%;
   font-weight: 500;
   border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--refershBackground);
 }
 
 .weather-display-header {
@@ -186,9 +214,7 @@ main {
   gap: 0.25rem;
 }
 
-.weather-display-header button[data-save-location],
-.weather-display-header button[data-delete-location],
-.weather-display-header button[data-refresh-location-data] {
+.weather-display-header .action-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,23 +225,28 @@ main {
   background-color: transparent;
 }
 
-.weather-display-header button[data-save-location]:hover,
-.weather-display-header button[data-delete-location]:hover,
-.weather-display-header button[data-refresh-location-data]:hover {
+.weather-display-header .action-button:hover {
   background-color: var(--shadowColor);
 }
 
-.weather-display-header button[data-save-location] img,
-.weather-display-header button[data-delete-location] img,
-.weather-display-header button[data-refresh-location-data] img {
+.weather-display-header .action-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--focusOrange);
+}
+
+.weather-display-header .action-button.refresh-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--refreshFocus);
+}
+
+.weather-display-header .action-button img {
   width: 1.3rem;
   height: 1.3rem;
 }
 
 .weather-details {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 0.5rem;
 }
 
 .weather-details .temp-main {
@@ -225,11 +256,17 @@ main {
   font-weight: bold;
 }
 
+.weather-details .temp-main img {
+  max-width: 5rem;
+  max-height: 5rem;
+}
+
 .weather-details .temp-secondary {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: right;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .weather-details .temp-secondary span:first-child {
@@ -240,30 +277,27 @@ main {
   font-size: 0.875rem;
 }
 
-.no-weather-text {
-  text-align: center;
-  color: var(--grey);
-}
+/* Laptops and below */
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   body {
     overflow: auto;
     overflow-x: hidden;
   }
 
   #root {
-    height: initial;
+    height: auto;
   }
 
   .container {
     grid-template-columns: 1fr;
-    grid-template-rows: 40% 60%; /* think later */
+    grid-template-rows: repeat(2, auto);
   }
 
   main {
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
+    padding-block: 6rem;
     border-right: 0;
     border-bottom: 1px solid var(--grey);
   }
@@ -275,12 +309,11 @@ main {
 
   .form-section form {
     flex-direction: column;
-    flex-wrap: nowrap;
   }
 
   .form-section form input#location-name {
     width: 100%;
-    padding-block: 0.5rem;
+    padding: 0.5rem;
     border-radius: 0.25rem;
   }
 
@@ -293,7 +326,7 @@ main {
     max-width: 410px;
   }
 
-  .pinned-locations ul[data-pinned-locations-list] {
+  .pinned-locations .pinned-locations-list {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
@@ -302,22 +335,21 @@ main {
   }
 }
 
-@media (max-width: 768px) {
-  .container {
-    grid-template-rows: auto 60%;
-  }
+/* Tablets and below */
 
+@media (max-width: 768px) {
   main {
-    flex-wrap: wrap;
-    gap: 4rem;
-    padding-block-start: 3rem;
-    padding-block-end: 2rem;
+    flex-direction: column;
+    gap: 3rem;
+    padding-block: 3rem;
   }
 
   .pinned-locations h2 {
-    padding-block-start: 2rem;
+    margin-block-start: 1rem;
   }
 }
+
+/* Phones and below */
 
 @media (max-width: 425px) {
   .root-header h1 {
@@ -331,20 +363,5 @@ main {
 
   .form-section {
     width: 90%;
-  }
-
-  .weather-details {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .weather-details .temp-secondary {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.675rem;
-    text-align: center;
   }
 }
