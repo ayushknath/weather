@@ -11,22 +11,27 @@ async function getLatLong(locationName) {
     return [data[0].lat, data[0].lon];
   } catch (error) {
     console.log(`getLatLong Error: ${error}`);
+    return null;
   }
 }
 
 async function getWeather(locationName) {
-  const [latitude, longitude] = await getLatLong(locationName);
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status (getWeather): ${response.status}`);
+  const coords = await getLatLong(locationName);
+  if (coords) {
+    try {
+      const [latitude, longitude] = [...coords];
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status (getWeather): ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(`getWeather Error: ${error}`);
     }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(`getWeather Error: ${error}`);
   }
+  return null;
 }
 
-export { getLatLong, getWeather };
+export { getWeather };

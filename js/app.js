@@ -17,6 +17,7 @@ async function handleSubmit(e) {
       displayWeather(response);
     } catch (error) {
       console.log(`handleSubmit Error: ${error}`);
+      alert("Invalid location!");
     }
   } else {
     alert("Invalid location! Please enter a valid location name.");
